@@ -1,0 +1,40 @@
+version: "3.7"
+services:
+    apache:
+        image: 'php:8.1.4-apache'
+        container_name: crud-users-php-apache
+        restart: always
+        build:
+            context: ./.devops/php
+            dockerfile: Dockerfile
+        env_file:
+            - .env
+        ports:
+            - '9000:80'
+        volumes:
+            - .:/var/www/html/
+            - ./.devops/apache/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+        extra_hosts:
+            - "host.docker-xdebug.internal:host-gateway"
+        networks:
+          - network-basic
+        depends_on:
+           - mysql
+    mysql:
+       container_name: mysql-crud-users
+       image: 'mysql:8.0'
+       ports:
+           - '${FORWARD_DB_PORT:-3306}:3306'
+       environment:
+           MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}'
+           MYSQL_DATABASE: '${DB_DATABASE}'
+           MYSQL_USER: '${DB_USERNAME}'
+           MYSQL_PASSWORD: '${DB_PASSWORD}'
+           MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+       volumes:
+           - ./.devops/persistence/mysql:/var/lib/mysql/
+       networks:
+           - network-basic
+networks:
+    network-basic:
+        name: network-basic

@@ -1,0 +1,14 @@
+{
+    "name": "root/html",
+    "autoload": {
+        
+        "files": [
+            "src/config/help.php"
+        ],
+
+        "psr-4": {
+            "Root\\Html\\": "src/"
+        }
+    },
+    "require": {}
+}
