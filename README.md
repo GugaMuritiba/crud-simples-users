@@ -1,1 +1,1 @@
-# bora-php-basic
+Projeto deCRUD simples focado no estudo aprofundado de banco de dados, utilizadno MYSQL, da arquitetura MVC e da programação Orientada a Objetos (POO) em PHP. O desenvolvimento é concentrado exclusivamente no backend, sem grande foco no personalização e embelezamento do frontend.
